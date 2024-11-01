@@ -1,8 +1,8 @@
 #include "filemodifier.h"
 
 
-FileModifier::FileModifier(const QString &inputMask, bool deleteAfterProcessing, const QString &outputDir, const QString &overwriteMode, int pollingInterval, const QByteArray &xorValue):
-    inputMask(inputMask), deleteAfterProcessing(deleteAfterProcessing),
+FileModifier::FileModifier(const QString &inputMask, bool deleteAfterProcessing, const QString &inputDir, const QString &outputDir, const QString &overwriteMode, int pollingInterval, const QByteArray &xorValue):
+    inputMask(inputMask), deleteAfterProcessing(deleteAfterProcessing),inputDir(inputDir),
     outputDir(outputDir), overwriteMode(overwriteMode),
     pollingInterval(pollingInterval), xorValue(xorValue)
 {
@@ -13,8 +13,8 @@ FileModifier::FileModifier(const QString &inputMask, bool deleteAfterProcessing,
 }
 
 void FileModifier::checkFiles() {
-    QDir dir(QDir::currentPath()+"/input_files");
-
+    //QDir dir(QDir::currentPath()+"/input_files");
+    QDir dir(inputDir);
     //qDebug() << "Путь к директории:" << dir.absolutePath();
     QStringList filters;
     filters << inputMask; // Добавляем маску в список фильтров
@@ -26,13 +26,14 @@ void FileModifier::checkFiles() {
 }
 
 void FileModifier::processFile(const QString &fileName) {
-    QDir dir(QDir::currentPath());
-    QString absPath = dir.absolutePath();
+    //QDir dir(QDir::currentPath());
+    //QDir dir(inputDir);
+    //QString absPath = dir.absolutePath();
     //qDebug() << "ABS" << absPath ;
-    absPath+="/input_files/";
-    QFile file(absPath+fileName);
+    //absPath+="/input_files/";
+    QFile file(inputDir+"/" + fileName);
     //()<< "absPath + fileName = " << absPath + fileName;
-    QFileInfo fileInfo(absPath+fileName);
+    QFileInfo fileInfo(inputDir+"/" + fileName);
     QDateTime lastModified = fileInfo.lastModified();
     QDateTime currentTime = QDateTime::currentDateTime();
     if (lastModified.secsTo(currentTime) < 10) {

@@ -18,6 +18,7 @@ void MainWindow::on_pushButton_clicked()
 {
     QString inputMask = ui->lineEdit->text();
     QString outputDir = ui->lineEdit_2->text();
+    QString inputDir = ui->lineEdit_4->text();
     bool deleteAfterProcessing = ui->checkBox->isChecked();
     QString overwriteMode = ui->comboBox->currentText();
     int pollingInterval = ui->spinBox->value();
@@ -28,7 +29,7 @@ void MainWindow::on_pushButton_clicked()
         return;
     }
 
-    fileModifier = new FileModifier(inputMask, deleteAfterProcessing, outputDir,
+    fileModifier = new FileModifier(inputMask, deleteAfterProcessing,inputDir, outputDir,
                                    overwriteMode, pollingInterval, xorValue);
     // QString inputMask = "*.txt"; // маска входных файлов
     // bool deleteAfterProcessing = false; // удалять или нет

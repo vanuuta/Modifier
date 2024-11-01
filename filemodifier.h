@@ -20,13 +20,14 @@ private:
     QString inputMask;
     bool deleteAfterProcessing;
     QString outputDir;
+    QString inputDir;
     QString overwriteMode;
     int pollingInterval;
     QByteArray xorValue;
     //unsigned char key;
     QTimer *timer;
 public:
-    explicit FileModifier(const QString &inputMask, bool deleteAfterProcessing, const QString &outputDir,
+    explicit FileModifier(const QString &inputMask, bool deleteAfterProcessing, const QString &inputDir, const QString &outputDir,
                           const QString &overwriteMode, int pollingInterval, const QByteArray &xorValue);
     bool isFileOpen(const QString& filePath);
     void processFile(const QString &fileName);
